@@ -41,11 +41,13 @@ var b = "abcdefghijklmnopqrstuvwxyz";
 var c = "0123456789";
 var d = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
 
+// Function to generate password
 function generatePassword() {
   var possiblePassword = "";
   var result = "";
   var y = parseInt(passwordLength);
 
+  // The string of each conditions is added to an empty string called possiblePassword if the conditions are desired by the user
   if (upperCase) {
     possiblePassword += a;
   }
@@ -62,6 +64,7 @@ function generatePassword() {
     possiblePassword += d;
   }
   
+  // Goes through a For loop to generate a random character from the combined string based on the length its length
   for (var i = 0; i < y; i++) {
     result += possiblePassword.charAt(Math.floor(Math.random() * possiblePassword.length));
   }
