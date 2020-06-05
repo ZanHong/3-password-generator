@@ -2,7 +2,6 @@
 var generateBtn = document.querySelector("#generate");
 var passwordLength = prompt("How many characters would you like for your password? ");
 
-
 // Making sure users inputs the correct password length
 while (passwordLength < 8 || passwordLength > 128) {
   passwordLength = prompt("Password length must be 8-128 characters! How many characters would you like? ")
@@ -17,7 +16,7 @@ var specialChar = confirm("Would you like to use special characters?");
 
 
 // Making sure users select at least 1 character type
-while ((upperCase && lowerCase && numbers && specialChar) != true) {
+if (!upperCase && !lowerCase && !numbers && !specialChar) {
   alert("You must use at least 1 character type!");
   upperCase = confirm("Would you like to use uppercase letter?");
   lowerCase = confirm("Would you like to use lowercase letters?");
@@ -31,34 +30,43 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
+
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
+var a = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var b = "abcdefghijklmnopqrstuvwxyz";
+var c = "0123456789";
+var d = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
 
 function generatePassword() {
-  // Generate random characters respectively
-  function randomUpper () {
-    return console.log(String.fromCharCode(Math.floor(Math.random() * 26 + 65)));
+  var possiblePassword = "";
+  var result = "";
+  var y = parseInt(passwordLength);
+
+  if (upperCase) {
+    possiblePassword += a;
   }
 
-  function randomLower() {
-    return console.log(String.fromCharCode(Math.floor(Math.random() * 26 + 97)));
-
+  if (lowerCase) {
+    possiblePassword += b;
   }
 
-  function randomNumber () {
-    return console.log(String.fromCharCode(Math.floor(Math.random() * 10 + 48)));
+  if (numbers) {
+    possiblePassword += c;
   }
 
-  function randomSpecial () {
-    const special = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
-    // not using String.fromCharCode here since the unicodes for special characters are not in a sequence unlike the above characters
-    return  console.log(special[Math.floor(Math.random() * special.length)]);
+  if (specialChar) {
+    possiblePassword += d;
   }
-
+  
+  for (var i = 0; i < y; i++) {
+    result += possiblePassword.charAt(Math.floor(Math.random() * possiblePassword.length));
+  }
+  
+  return result;
 }
 
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+alert("Congratulations! Password generation with a length of " + passwordLength + " successful!\nPlease press the 'Generate Password' button to see your password. \nPress it again to generate another password of the same length. \nRefresh the page if you wish to change the password criteria.");
